@@ -1,4 +1,14 @@
+---
+title: "Entity Framework Overview"
+category: "backend"
+tags: ["entity-framework", "ef-core", "orm", "dotnet"]
+language: "en"
+source_type: "interview-notes"
+---
+
 # Entity Framework Overview
+
+## Knowledge Notes
 
 Entity Framework, usually shortened to **EF**, is Microsoft's ORM framework for .NET.
 
@@ -145,3 +155,59 @@ Entity Framework lets you work with a relational database through C# objects ins
 If you need a short interview answer:
 
 > Entity Framework is Microsoft's ORM for .NET. It maps C# classes to database tables, lets developers query data with LINQ, tracks entity changes, and can manage schema updates through migrations. In modern projects, EF Core is usually the preferred choice.
+
+## Flashcards
+
+### General
+**Q:** What problem does it solve?
+**A:** Without EF, database access often looks like this:
+
+1. Write SQL manually
+2. Open a database connection
+3. Execute the command
+4. Read the result set
+5. Map each column into an object
+
+EF abstracts most of that away, so your code can look more like this:
+
+```csharp
+var user = new User { Name = "Alice" };
+context.Users.Add(user);
+context.SaveChanges();
+```
+
+EF generates the corresponding `INSERT` SQL behind the scenes.
+
+### Code First
+**Q:** What are Migrations?
+**A:** Migrations are EF's way of versioning database schema changes.
+
+For example, if you add a new property:
+
+```csharp
+public string Email { get; set; }
+```
+
+You can generate a migration so EF creates the corresponding schema update.
+
+Common commands:
+
+```bash
+dotnet ef migrations add AddUserEmail
+dotnet ef database update
+```
+
+### Disadvantages
+**Q:** When is Entity Framework a good fit?
+**A:** Entity Framework works well for:
+
+- Business applications
+- Internal tools and back-office systems
+- CRUD-heavy systems
+- .NET projects that value developer productivity
+
+It may be less suitable for:
+
+- Extremely performance-sensitive systems
+- Applications with very complex SQL requirements
+- Systems that depend heavily on stored procedures or tightly controlled SQL

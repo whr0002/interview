@@ -1,4 +1,14 @@
+---
+title: "TypeScript Interview Review"
+category: "frontend"
+tags: ["typescript", "javascript", "frontend", "interview"]
+language: "en"
+source_type: "interview-notes"
+---
+
 # TypeScript Interview Review
+
+## Knowledge Notes
 
 This document summarizes core TypeScript knowledge for interviews, along with common questions and concise model answers.
 
@@ -480,3 +490,76 @@ For interviews, do not only memorize definitions. Try to answer in this pattern:
 3. Give a small example or real project use case.
 
 That structure makes your answers sound clear, practical, and confident.
+
+## Flashcards
+
+### What is TypeScript?
+**Q:** What is TypeScript?
+**A:** TypeScript is a superset of JavaScript that adds static typing and compile-time checks. It helps developers catch errors earlier, improves maintainability, and provides better tooling support.
+
+### Why use TypeScript instead of JavaScript?
+**Q:** Why use TypeScript instead of JavaScript?
+**A:** TypeScript improves code quality by detecting many errors before runtime. It also makes large codebases easier to maintain, improves refactoring safety, and helps teams collaborate with clearer contracts.
+
+### What is the difference between `any` and `unknown`?
+**Q:** What is the difference between `any` and `unknown`?
+**A:** `any` disables type checking and allows any operation. `unknown` is safer because you must narrow the type before using it. In most cases, `unknown` is preferred over `any`.
+
+### What is the difference between `type` and `interface`?
+**Q:** What is the difference between `type` and `interface`?
+**A:** Both can describe object shapes. `interface` is commonly used for object contracts and supports declaration merging. `type` is more flexible because it can also describe unions, intersections, tuples, and conditional types.
+
+### What is a union type?
+**Q:** What is a union type?
+**A:** A union type means a value can be one of several types. For example, `string | number` means the value can be either a string or a number.
+
+### What is a generic?
+**Q:** What is a generic?
+**A:** A generic allows us to write reusable code while preserving type safety. Instead of hardcoding a specific type, we use a type parameter such as `T`.
+
+### What does `extends` mean in generics?
+**Q:** What does `extends` mean in generics?
+**A:** In generics, `extends` is used as a constraint. It means the generic type must satisfy a certain structure. For example, `T extends { length: number }` means `T` must have a `length` property.
+
+### What is `Record` used for?
+**Q:** What is `Record` used for?
+**A:** `Record<K, T>` is used to create an object type where the keys are `K` and the values are `T`. It is useful for key-value mappings, such as config objects or lookup tables.
+
+### What is `ReturnType`?
+**Q:** What is `ReturnType`?
+**A:** `ReturnType<T>` is a utility type that extracts the return type of a function type. It helps avoid duplicating types and keeps function-related types in sync.
+
+### What is `Parameters`?
+**Q:** What is `Parameters`?
+**A:** `Parameters<T>` is a utility type that extracts the parameter types of a function and returns them as a tuple.
+
+### What is `never` used for?
+**Q:** What is `never` used for?
+**A:** `never` is used for values that should never happen. It is useful for exhaustive checks in unions and for functions that never successfully return.
+
+### What is structural typing?
+**Q:** What is structural typing?
+**A:** Structural typing means TypeScript compares types by their shape, not by their names. If an object has the required properties, it is usually compatible.
+
+### Does TypeScript run in the browser?
+**Q:** Does TypeScript run in the browser?
+**A:** TypeScript itself does not run directly in the browser. It is compiled into JavaScript, and that JavaScript runs in the browser or Node.js.
+
+### Does TypeScript exist at runtime?
+**Q:** Does TypeScript exist at runtime?
+**A:** No. Type information is erased during compilation, so TypeScript types do not exist at runtime.
+
+### Can TypeScript prevent all bugs?
+**Q:** Can TypeScript prevent all bugs?
+**A:** No. TypeScript helps catch many type-related issues at compile time, but it cannot prevent logical bugs, runtime environment issues, or invalid external data by itself.
+
+### General
+**Q:** What TypeScript Is
+**A:** TypeScript is a superset of JavaScript that adds static typing, compile-time checks, and better tooling support.
+
+Key points:
+
+- It helps catch errors before runtime.
+- It improves maintainability in medium and large codebases.
+- It provides better autocomplete, navigation, and refactoring support.
+- It compiles to plain JavaScript, so it does not change the runtime nature of JavaScript.

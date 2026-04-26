@@ -1,3 +1,15 @@
+---
+title: ".NET Core Interview Review"
+category: "backend"
+tags: ["dotnet", "aspnet-core", "ef-core", "backend", "interview"]
+language: "en"
+source_type: "interview-notes"
+---
+
+# .NET Core Interview Review
+
+## Knowledge Notes
+
 ## 1. What is .NET Core?
 
 - `.NET Core` is Microsoft's cross-platform, open-source, high-performance implementation of .NET.
@@ -509,3 +521,354 @@ At the end, just remember these keywords:
 - Caching: `MemoryCache` / `Redis`
 - Kestrel
 - Docker / microservices / reverse proxy
+
+## Flashcards
+
+### General
+**Q:** What is .NET Core?
+**A:** - `.NET Core` is Microsoft's cross-platform, open-source, high-performance implementation of .NET.
+- It includes the runtime, base class libraries, and the infrastructure needed to build modern applications.
+- It is commonly used for Web APIs, microservices, console apps, and backend services.
+
+In one sentence:
+.NET Core is the modern .NET platform, emphasizing cross-platform support, high performance, and cloud-native development.
+
+### What is .NET Core?
+**Q:** Difference Between .NET Framework and .NET Core
+**A:** - `.NET Framework` mainly runs on Windows.
+- `.NET Core` supports Windows, Linux, and macOS.
+- `.NET Core` is better suited for Docker, Kubernetes, and microservices.
+- `.NET Core` is open source and generally has better performance.
+- Later, the ecosystem was unified into `.NET 5+`.
+
+In one sentence:
+Older projects often use .NET Framework, while new projects usually prioritize modern .NET.
+
+### Difference Between .NET Framework and .NET Core
+**Q:** Why Is .NET Core Popular?
+**A:** - Cross-platform
+- Open source
+- High performance
+- Better for containerized deployment
+- Better for microservice architecture
+- Built-in dependency injection, configuration, and logging
+
+### Why Is .NET Core Popular?
+**Q:** What Are CoreCLR, JIT, and GC?
+**A:** **CoreCLR**
+
+- The core runtime of `.NET Core`
+
+**JIT**
+
+- Just-In-Time compiler
+- Compiles IL into machine code for execution
+
+**GC**
+
+- Garbage Collector
+- Responsible for managed memory cleanup
+
+In one sentence:
+CoreCLR runs the program, JIT compiles it for execution, and GC handles memory reclamation.
+
+### What Are CoreCLR, JIT, and GC?
+**Q:** What Are Managed Code and the Managed Runtime?
+**A:** - Managed code runs inside the `.NET` runtime.
+- The runtime is responsible for memory management, exception handling, type safety, and garbage collection.
+- This is also one of the key reasons .NET development is so productive.
+
+### What Are Managed Code and the Managed Runtime?
+**Q:** What Is ASP.NET Core?
+**A:** - A web development framework based on `.NET Core`
+- It can be used to build:
+  - Web APIs
+  - MVC websites
+  - Razor Pages
+  - Microservices
+
+Features:
+
+- High performance
+- Cross-platform
+- Clear middleware pipeline
+- Built-in DI, logging, and configuration
+
+### What Is ASP.NET Core?
+**Q:** What Is the ASP.NET Core Request Pipeline?
+**A:** - After a request enters the application, it passes through multiple **Middleware** components in order.
+- Each middleware can:
+  - Process the request
+  - Call the next middleware
+  - Continue processing when the response comes back
+
+In one sentence:
+ASP.NET Core is based on a middleware pipeline, and requests flow through it in registration order.
+
+### What Is the ASP.NET Core Request Pipeline?
+**Q:** What Are Common Middleware Components?
+**A:** - Exception handling
+- Routing
+- Static files
+- CORS
+- Authentication
+- Authorization
+- Logging
+
+High-frequency interview point:
+Middleware order is very important, especially for routing, authentication, and authorization.
+
+### What Are Common Middleware Components?
+**Q:** What Is Dependency Injection (DI)?
+**A:** - Hand over object creation and dependency management to a container.
+- Reduce coupling between modules.
+- Improve testability and maintainability.
+
+ASP.NET Core has a built-in DI container.
+
+### The Three DI Lifetimes
+**Q:** Why Is `DbContext` Usually Registered as `Scoped`?
+**A:** - `DbContext` represents a data access session within a request scope.
+- It is not suitable for global sharing.
+- If it is registered as `Singleton`, thread-safety issues and state pollution can easily occur.
+
+In one sentence:
+`DbContext` usually follows the request lifetime, so it is typically registered as `Scoped`.
+
+### Why Is `DbContext` Usually Registered as `Scoped`?
+**Q:** Why Can't a Singleton Directly Depend on a Scoped Service?
+**A:** - The `Singleton` lifetime is longer than `Scoped`.
+- This can cause scope mismatch.
+- It may end up holding a disposed instance.
+
+In one sentence:
+A long-lived object should not directly depend on a short-lived object.
+
+### Why Can't a Singleton Directly Depend on a Scoped Service?
+**Q:** What Are the Configuration Sources in ASP.NET Core?
+**A:** Common sources:
+
+- `appsettings.json`
+- `appsettings.Development.json`
+- Environment variables
+- Command-line arguments
+- Secret Manager
+
+In one sentence:
+ASP.NET Core configuration is layered, and later-loaded sources usually override earlier ones.
+
+### What Are the Configuration Sources in ASP.NET Core?
+**Q:** How Is Logging Done in ASP.NET Core?
+**A:** Built-in interface:
+
+- `ILogger<T>`
+
+Common levels:
+
+- `Trace`
+- `Debug`
+- `Information`
+- `Warning`
+- `Error`
+- `Critical`
+
+Common ecosystem tools:
+
+- `Serilog`
+- `Seq`
+- `ELK`
+- `Application Insights`
+
+### How Is Logging Done in ASP.NET Core?
+**Q:** What Are `IHost` and the Generic Host?
+**A:** - `.NET Core` uses the Host model to manage the application lifecycle.
+- The Generic Host unifies:
+  - Configuration
+  - Logging
+  - Dependency Injection
+  - Background services
+
+Common scenarios:
+
+- Web applications
+- Worker Services
+- Background scheduled jobs
+
+### What Are `IHost` and the Generic Host?
+**Q:** What Does `Program.cs` Do in .NET Core?
+**A:** - Configures the application entry point
+- Registers services in the DI container
+- Configures middleware
+- Starts the application
+
+In one sentence:
+`Program.cs` is the startup and composition center of the application.
+
+### Common Web API Return Types
+**Q:** What Is a RESTful API?
+**A:** Core idea:
+
+- URLs represent resources
+- HTTP methods represent operations
+
+Common methods:
+
+- `GET`: query
+- `POST`: create
+- `PUT`: update
+- `DELETE`: delete
+
+### What Is a RESTful API?
+**Q:** Difference Between Authentication and Authorization
+**A:** - **Authentication**: confirms who the user is
+- **Authorization**: confirms what the user is allowed to do
+
+### Difference Between Authentication and Authorization
+**Q:** What Is JWT?
+**A:** - A common stateless authentication solution
+- Very suitable for frontend-backend separation and distributed systems
+
+Structure:
+
+- `Header`
+- `Payload`
+- `Signature`
+
+Notes:
+
+- Do not store sensitive plaintext data in the `Payload`.
+- Set a reasonable expiration time.
+- Validate signatures properly.
+
+### Common Authentication Methods in ASP.NET Core
+**Q:** What Is EF Core?
+**A:** - A commonly used ORM in the `.NET Core` era
+- Uses LINQ to operate on the database
+- Supports both Code First and Database First
+
+Core objects:
+
+- `DbContext`
+- `DbSet<TEntity>`
+
+### What Is EF Core?
+**Q:** What Is `DbContext`?
+**A:** - The core context object for database access
+- Responsible for connection management, change tracking, querying, and saving
+
+In one sentence:
+`DbContext` can be understood as a database session.
+
+### Common EF Core Capabilities
+**Q:** What Is a Migration?
+**A:** - EF Core's database migration mechanism
+- Used to manage schema changes
+
+In one sentence:
+Migrations keep the code model and database schema evolving together.
+
+### What Is a Migration?
+**Q:** How Do You Optimize EF Core Queries?
+**A:** - `AsNoTracking()`: improve performance for read-only queries
+- `Select()`: only fetch needed fields
+- `Include()`: load related data
+- Pagination: `Skip()` / `Take()`
+- Avoid N+1 queries
+- Add indexes to high-frequency fields
+
+### How Do You Optimize EF Core Queries?
+**Q:** What Is the N+1 Query Problem?
+**A:** - First query the main data
+- Then query related data once for each row of main data
+- This leads to too many SQL executions
+
+In one sentence:
+The essence of the N+1 problem is uncontrolled query count, usually optimized with `Include` or projection queries.
+
+### What Is the N+1 Query Problem?
+**Q:** What Is `AsNoTracking()` Used For?
+**A:** - Disables entity change tracking
+- Reduces memory usage
+- Improves read-only query performance
+
+### What Is `AsNoTracking()` Used For?
+**Q:** How Is Caching Done in ASP.NET Core?
+**A:** Common approaches:
+
+- Local cache: `MemoryCache`
+- Distributed cache: `Redis`
+
+Benefits:
+
+- Reduce database pressure
+- Improve API response speed
+
+Pay attention to:
+
+- Cache consistency
+- Cache penetration
+- Cache breakdown
+- Cache avalanche
+
+### How Is Caching Done in ASP.NET Core?
+**Q:** What Is Garbage Collection (GC)?
+**A:** - .NET's automatic memory management mechanism
+- Responsible for reclaiming managed objects that are no longer in use
+
+Generations:
+
+- `Gen 0`
+- `Gen 1`
+- `Gen 2`
+
+Additional point:
+
+- Large Object Heap `LOH`
+
+### What Is Garbage Collection (GC)?
+**Q:** Difference Between `Dispose` and GC
+**A:** - `GC`: manages managed memory, but the execution time is not deterministic
+- `Dispose`: used to proactively release unmanaged resources
+
+Common resources:
+
+- Database connections
+- File handles
+- Network connections
+
+In one sentence:
+GC handles memory, while `Dispose` handles external resources.
+
+### Difference Between `Dispose` and GC
+**Q:** What Is `using` For?
+**A:** - Ensures `Dispose` is called automatically after the object is used
+- Commonly used for connections, file streams, network streams, and similar scenarios
+
+### What Is `using` For?
+**Q:** How Do You Optimize ASP.NET Core Performance?
+**A:** - Use asynchronous I/O
+- Reduce unnecessary object allocations
+- Use caching appropriately
+- Optimize database queries
+- Return only necessary fields
+- Add pagination to APIs
+- Use connection pooling
+- Avoid repeated serialization and expensive reflection on hot paths
+
+### How Do You Optimize ASP.NET Core Performance?
+**Q:** What Is Kestrel?
+**A:** - The built-in cross-platform web server in ASP.NET Core
+- Usually used to host the application service
+- In production it is often used together with Nginx or IIS
+
+In one sentence:
+Kestrel is the default web server for ASP.NET Core.
+
+### What Is Kestrel?
+**Q:** Why Is ASP.NET Core Suitable for Microservices?
+**A:** - Lightweight
+- High performance
+- Cross-platform
+- Easy to containerize
+- Complete configuration, logging, and DI ecosystem
+- Very suitable for Docker / Kubernetes deployment

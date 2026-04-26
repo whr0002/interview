@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interview Flashcards</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Flashcard controls">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">FC</span>
+          <div>
+            <h1>Interview Cards</h1>
+            <p id="cardCount">Loading cards...</p>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>搜索</span>
+          <input id="searchInput" type="search" placeholder="React, SQL, middleware..." autocomplete="off" />
+        </label>
+
+        <label class="field">
+          <span>资料来源</span>
+          <select id="sourceSelect"></select>
+        </label>
+
+        <label class="field">
+          <span>练习模式</span>
+          <select id="modeSelect">
+            <option value="all">全部卡片</option>
+            <option value="due">未掌握优先</option>
+            <option value="starred">只看收藏</option>
+          </select>
+        </label>
+
+        <div class="stats-grid" aria-label="Study stats">
+          <div>
+            <strong id="knownCount">0</strong>
+            <span>掌握</span>
+          </div>
+          <div>
+            <strong id="reviewCount">0</strong>
+            <span>待复习</span>
+          </div>
+          <div>
+            <strong id="starredCount">0</strong>
+            <span>收藏</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="shuffleBtn" type="button" class="secondary">随机</button>
+          <button id="resetBtn" type="button" class="secondary">重置进度</button>
+        </div>
+      </aside>
+
+      <section class="study-area" aria-live="polite">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow" id="sourceLabel">Source</p>
+          </div>
+          <button id="starBtn" type="button" class="icon-button" aria-label="Toggle favorite" title="收藏">☆</button>
+        </div>
+
+        <button id="cardButton" type="button" class="flashcard" aria-label="Flip flashcard">
+          <span class="card-side" id="sideLabel">Question</span>
+          <span class="card-text" id="cardText"></span>
+          <span class="flip-hint">点击翻面</span>
+        </button>
+
+        <div class="rating-row" aria-label="Rate current card">
+          <button id="againBtn" type="button" class="danger">还不熟</button>
+          <button id="knownBtn" type="button" class="success">已掌握</button>
+        </div>
+
+        <nav class="nav-row" aria-label="Card navigation">
+          <button id="prevBtn" type="button" class="secondary">上一张</button>
+          <div class="position" id="positionLabel">0 / 0</div>
+          <button id="nextBtn" type="button" class="primary">下一张</button>
+        </nav>
+      </section>
+    </main>
+
+    <script src="./cards-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

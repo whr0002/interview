@@ -487,7 +487,7 @@ window.QA_DATA = [
       },
       {
         "id": "02a0b8551daa",
-        "topic": "React 18",
+        "topic": "Part 1: Q&A by 14 Core Topic Groups",
         "question": "Common Coding Tasks",
         "answer": "**Q: What coding tasks are common in React interviews?**  \nA: Counters, forms, custom hooks, stale closure fixes, list rendering, tabs, modals, and simple app features like todo lists.\n\n**Q: Why do interviewers ask coding tasks in React?**  \nA: They want to see whether you can apply core concepts, not just define them.\n\n**Q: What should you focus on in a React coding interview?**  \nA: Clear state management, correct data flow, clean component structure, and simple but correct logic."
       }
@@ -497,7 +497,7 @@ window.QA_DATA = [
     "fileName": "02_前端_TypeScript复习.md",
     "sourcePath": "02_前端_TypeScript复习.md",
     "title": "TypeScript Interview Review",
-    "count": 17,
+    "count": 16,
     "questions": [
       {
         "id": "7c3d9c80d9e4",
@@ -594,12 +594,6 @@ window.QA_DATA = [
         "topic": "Interview Practice",
         "question": "What TypeScript Is",
         "answer": "TypeScript is a superset of JavaScript that adds static typing, compile-time checks, and better tooling support.\n\nKey points:\n\n- It helps catch errors before runtime.\n- It improves maintainability in medium and large codebases.\n- It provides better autocomplete, navigation, and refactoring support.\n- It compiles to plain JavaScript, so it does not change the runtime nature of JavaScript."
-      },
-      {
-        "id": "59f76a8fabcd",
-        "topic": "Type Narrowing and Type Guards",
-        "question": "Common Interview Questions and Answers",
-        "answer": "### Q1. What is TypeScript?\n\nAnswer:\n\nTypeScript is a superset of JavaScript that adds static typing and compile-time checks. It helps developers catch errors earlier, improves maintainability, and provides better tooling support.\n\n### Q2. Why use TypeScript instead of JavaScript?\n\nAnswer:\n\nTypeScript improves code quality by detecting many errors before runtime. It also makes large codebases easier to maintain, improves refactoring safety, and helps teams collaborate with clearer contracts.\n\n### Q3. What is the difference between `any` and `unknown`?\n\nAnswer:\n\n`any` disables type checking and allows any operation. `unknown` is safer because you must narrow the type before using it. In most cases, `unknown` is preferred over `any`.\n\n### Q4. What is the difference between `type` and `interface`?\n\nAnswer:\n\nBoth can describe object shapes. `interface` is commonly used for object contracts and supports declaration merging. `type` is more flexible because it can also describe unions, intersections, tuples, and conditional types.\n\n### Q5. What is a union type?\n\nAnswer:\n\nA union type means a value can be one of several types. For example, `string | number` means the value can be either a string or a number.\n\n### Q6. What is a generic?\n\nAnswer:\n\nA generic allows us to write reusable code while preserving type safety. Instead of hardcoding a specific type, we use a type parameter such as `T`.\n\n### Q7. What does `extends` mean in generics?\n\nAnswer:\n\nIn generics, `extends` is used as a constraint. It means the generic type must satisfy a certain structure. For example, `T extends { length: number }` means `T` must have a `length` property.\n\n### Q8. What is `Record` used for?\n\nAnswer:\n\n`Record<K, T>` is used to create an object type where the keys are `K` and the values are `T`. It is useful for key-value mappings, such as config objects or lookup tables.\n\n### Q9. What is `ReturnType`?\n\nAnswer:\n\n`ReturnType<T>` is a utility type that extracts the return type of a function type. It helps avoid duplicating types and keeps function-related types in sync.\n\n### Q10. What is `Parameters`?\n\nAnswer:\n\n`Parameters<T>` is a utility type that extracts the parameter types of a function and returns them as a tuple.\n\n### Q11. What is `never` used for?\n\nAnswer:\n\n`never` is used for values that should never happen. It is useful for exhaustive checks in unions and for functions that never successfully return.\n\n### Q12. What is structural typing?\n\nAnswer:\n\nStructural typing means TypeScript compares types by their shape, not by their names. If an object has the required properties, it is usually compatible.\n\n### Q13. Does TypeScript run in the browser?\n\nAnswer:\n\nTypeScript itself does not run directly in the browser. It is compiled into JavaScript, and that JavaScript runs in the browser or Node.js.\n\n### Q14. Does TypeScript exist at runtime?\n\nAnswer:\n\nNo. Type information is erased during compilation, so TypeScript types do not exist at runtime.\n\n### Q15. Can TypeScript prevent all bugs?\n\nAnswer:\n\nNo. TypeScript helps catch many type-related issues at compile time, but it cannot prevent logical bugs, runtime environment issues, or invalid external data by itself."
       }
     ]
   },
@@ -617,13 +611,13 @@ window.QA_DATA = [
       },
       {
         "id": "08780e53f194",
-        "topic": "Basic Express Usage",
+        "topic": "Core Express Concepts",
         "question": "What Is Middleware?",
         "answer": "Middleware is essentially a function:\n\n```js\n(req, res, next) => {}\n```\n\nIt can be used to:\n\n- Process requests\n- Modify `req` or `res`\n- Run validation, authentication, or logging\n- Call `next()` to pass control to the next middleware\n- Send a response directly and end the request\n\nCommon middleware types:\n\n- Application-level middleware\n- Router-level middleware\n- Error-handling middleware\n- Built-in middleware such as `express.json()` and `express.urlencoded()`\n\nInterview answer:\nThe core of Express is its middleware mechanism. A request passes through multiple middleware functions in order. Each layer handles a specific responsibility, such as logging, authentication, parameter validation, or error handling. This makes the code clearer and easier to reuse."
       },
       {
         "id": "28e17626f034",
-        "topic": "Routes and Parameters",
+        "topic": "Core Express Concepts",
         "question": "Difference Between `app.use()` and `app.get()` / `app.post()`",
         "answer": "- `app.use()` is usually used to mount middleware and can match multiple HTTP methods by default.\n- `app.get()` / `app.post()` are used to define routes for specific HTTP methods."
       },
@@ -635,7 +629,7 @@ window.QA_DATA = [
       },
       {
         "id": "9749a4b1ae78",
-        "topic": "Common HTTP Methods",
+        "topic": "RESTful API Basics",
         "question": "Common Status Codes",
         "answer": "- `200 OK`\n- `201 Created`\n- `204 No Content`\n- `400 Bad Request`\n- `401 Unauthorized`\n- `403 Forbidden`\n- `404 Not Found`\n- `500 Internal Server Error`\n\nInterview answer:\nWhen designing APIs, I try to follow RESTful conventions. I use nouns to represent resources, HTTP methods to represent actions, and appropriate status codes in responses. This makes the API easier for front-end and back-end teams to collaborate on and maintain."
       },
@@ -646,10 +640,10 @@ window.QA_DATA = [
         "answer": "Common folder structure:\n\n- `routes/`: defines routes\n- `controllers/`: handles requests and responses\n- `services/`: contains business logic\n- `models/`: contains data models\n- `middlewares/`: contains middleware\n- `utils/`: contains utility functions\n- `app.js` / `server.js`: entry file\n\nInterview answer:\nI usually use a layered structure. The route layer handles URL mapping, the controller layer receives requests and returns responses, the service layer handles business logic, and the model layer handles data access. This keeps responsibilities clear and makes the project easier to test and maintain."
       },
       {
-        "id": "170bbee58e5d",
-        "topic": "How to Explain Express Project Structure",
-        "question": "Common Authentication Topics",
-        "answer": "### 6.1 Difference Between Session and JWT\n\n#### Session\n\n- Session information is stored on the server side.\n- The client usually only stores a session id.\n- It is suitable for traditional server-rendered applications.\n\n#### JWT\n\n- User information or claims are packaged inside a token.\n- The server does not necessarily store session state.\n- It is suitable for separated front-end/back-end systems and mobile applications.\n\nInterview answer:\nFor front-end/back-end separated applications, I usually consider JWT first because it fits stateless authentication better. For traditional web applications, Session is also common, especially when the server needs to manage user sessions centrally.\n\n### 6.2 Pros and Cons of JWT\n\nAdvantages:\n\n- Suitable for distributed systems\n- Reduces server-side session storage pressure\n- Convenient for separated front-end/back-end applications\n\nDisadvantages:\n\n- Once issued, it is difficult to invalidate before expiration.\n- A leaked token creates security risk.\n- It usually needs to be combined with refresh tokens or a blacklist mechanism."
+        "id": "dedfead500e4",
+        "topic": "Common Authentication Topics",
+        "question": "Difference Between Session and JWT",
+        "answer": "#### Session\n\n- Session information is stored on the server side.\n- The client usually only stores a session id.\n- It is suitable for traditional server-rendered applications.\n\n#### JWT\n\n- User information or claims are packaged inside a token.\n- The server does not necessarily store session state.\n- It is suitable for separated front-end/back-end systems and mobile applications.\n\nInterview answer:\nFor front-end/back-end separated applications, I usually consider JWT first because it fits stateless authentication better. For traditional web applications, Session is also common, especially when the server needs to manage user sessions centrally."
       },
       {
         "id": "0d602696dbbf",
@@ -665,85 +659,85 @@ window.QA_DATA = [
       },
       {
         "id": "b600624c25ac",
-        "topic": "Why Is Node.js Fast?",
+        "topic": "High-Frequency Interview Questions",
         "question": "Node.js Is Single-Threaded. How Can It Support High Concurrency?",
         "answer": "**Reference answer:**\nThe JavaScript execution part of Node.js is single-threaded, but many I/O operations are not completed synchronously on the main thread. They are delegated to the underlying system or thread pool. The main thread mainly receives the results and executes callbacks, so Node.js can support high concurrency on top of a single-threaded JavaScript model."
       },
       {
         "id": "430b4fc70d36",
-        "topic": "Node.js Is Single-Threaded. How Can It Support High Concurrency?",
+        "topic": "High-Frequency Interview Questions",
         "question": "What Does `next()` Do in Express?",
         "answer": "**Reference answer:**\n`next()` passes the current request to the next middleware or route handler. If `next()` is not called and no response is sent, the request may remain stuck."
       },
       {
         "id": "5d444013ebe1",
-        "topic": "What Does `next()` Do in Express?",
+        "topic": "High-Frequency Interview Questions",
         "question": "What Is the Execution Order of Middleware?",
         "answer": "**Reference answer:**\nExpress middleware usually executes in the order it is registered. After a request enters the application, it passes through the matching middleware functions one by one. Therefore, middleware order is very important. For example, logging, authentication, and parameter parsing are usually placed near the beginning."
       },
       {
         "id": "cf462b3e6467",
-        "topic": "What Is the Execution Order of Middleware?",
+        "topic": "High-Frequency Interview Questions",
         "question": "What Is the Difference Between `req.params`, `req.query`, and `req.body`?",
         "answer": "**Reference answer:**\n`req.params` is used to get route parameters, `req.query` is used to get URL query parameters, and `req.body` is used to get data from the request body, such as JSON submitted through POST. They correspond to different data sources."
       },
       {
         "id": "b68425bbd83b",
-        "topic": "What Is the Difference Between `req.params`, `req.query`, and `req.body`?",
+        "topic": "High-Frequency Interview Questions",
         "question": "Difference Between GET and POST",
         "answer": "**Reference answer:**\nGET is usually used to query data, and parameters are usually placed in the URL. POST is usually used to submit data, and the data is usually placed in the request body. GET emphasizes idempotent querying, while POST is more commonly used for creation or submission operations."
       },
       {
         "id": "23ed582371e7",
-        "topic": "Difference Between GET and POST",
+        "topic": "High-Frequency Interview Questions",
         "question": "Difference Between PUT and PATCH",
         "answer": "**Reference answer:**\nPUT usually represents a full update of a resource, while PATCH represents a partial update. In real projects, if only one field needs to be changed, PATCH is usually more appropriate."
       },
       {
         "id": "9a18e056f389",
-        "topic": "Difference Between PUT and PATCH",
+        "topic": "High-Frequency Interview Questions",
         "question": "What Is RESTful?",
         "answer": "**Reference answer:**\nRESTful is an API design style. Its core idea is to model data as resources, identify resources through consistent URLs, and use HTTP methods to represent operations on those resources. For example, GET retrieves data, POST creates data, PUT updates data, and DELETE removes data."
       },
       {
         "id": "defc72b45080",
-        "topic": "What Is RESTful?",
+        "topic": "High-Frequency Interview Questions",
         "question": "Why Do We Use Layered Project Structure?",
         "answer": "**Reference answer:**\nLayering mainly reduces coupling and separates responsibilities between routing, business logic, and data access. This makes the code clearer and easier to test, extend, and maintain."
       },
       {
         "id": "a3ae14968478",
-        "topic": "Why Do We Use Layered Project Structure?",
+        "topic": "High-Frequency Interview Questions",
         "question": "How Do You Choose Between Session and JWT?",
         "answer": "**Reference answer:**\nFor traditional server-rendered applications, Session is common. For front-end/back-end separated systems, mobile applications, or distributed systems, JWT is more common. The final choice depends on the system architecture, scalability requirements, and security strategy."
       },
       {
         "id": "f9fc68d5e742",
-        "topic": "How Do You Choose Between Session and JWT?",
+        "topic": "High-Frequency Interview Questions",
         "question": "What Are the Disadvantages of JWT?",
         "answer": "**Reference answer:**\nThe main issue with JWT is that it is usually difficult to invalidate immediately after it has been issued. This makes requirements such as forced logout or immediate permission change more complex. In practice, it is often combined with a blacklist mechanism, or with short-lived access tokens plus refresh tokens."
       },
       {
         "id": "ce33da598cc9",
-        "topic": "What Are the Disadvantages of JWT?",
+        "topic": "High-Frequency Interview Questions",
         "question": "How Do You Handle Global Errors in Express?",
         "answer": "**Reference answer:**\nI usually register a global error-handling middleware at the end of the application to handle exception responses centrally. For asynchronous logic, I use `try/catch` with `next(err)`, or wrap route handlers with an asyncHandler to capture errors consistently."
       },
       {
         "id": "d10bc80286d0",
-        "topic": "How Do You Handle Global Errors in Express?",
+        "topic": "High-Frequency Interview Questions",
         "question": "How Do You Understand Cross-Origin Requests?",
         "answer": "**Reference answer:**\nCross-origin issues come from the browser's same-origin policy. If the front end and back end use different domains, ports, or protocols, cross-origin restrictions may occur. The server usually solves this by configuring CORS to allow access from specified origins."
       },
       {
         "id": "ab92225f2fc7",
-        "topic": "How Do You Understand Cross-Origin Requests?",
+        "topic": "High-Frequency Interview Questions",
         "question": "How Do You Validate Request Parameters?",
         "answer": "**Reference answer:**\nParameter validation is usually placed in the middleware layer. The request parameters are validated before entering the business logic. This prevents invalid data from entering the system and makes it easier to return consistent error messages. Common tools include `joi` and `express-validator`."
       },
       {
         "id": "e18a4978278e",
-        "topic": "How Do You Validate Request Parameters?",
+        "topic": "High-Frequency Interview Questions",
         "question": "How Do You Improve the Stability of a Node.js Service?",
         "answer": "**Reference answer:**\nI would improve stability through unified error handling, logging and monitoring, rate limiting, process management, health checks, caching, reasonable timeout settings, and avoiding event loop blocking. For critical services, I would also use load balancing and multi-instance deployment."
       }
@@ -1009,13 +1003,127 @@ window.QA_DATA = [
     "fileName": "07_数据库_基础面试问答.md",
     "sourcePath": "07_数据库_基础面试问答.md",
     "title": "Database Interview Questions and Answers",
-    "count": 28,
+    "count": 47,
     "questions": [
       {
-        "id": "7e442ea561b4",
-        "topic": "Interview Practice",
-        "question": "Common Database Interview Questions",
-        "answer": "### 1. What is a database?\nA database is an organized system for storing, managing, and retrieving data efficiently. It allows applications and users to insert, update, query, and analyze information in a structured way.\n\n### 2. What is the difference between SQL and NoSQL databases?\nSQL databases are relational, use structured schemas, and are typically queried with SQL. They are strong when you need joins, transactions, and strict consistency. NoSQL databases are often schema-flexible and are designed for use cases such as large-scale document storage, caching, graph traversal, or high-throughput distributed workloads.\n\n### 3. What is a primary key?\nA primary key is a column or set of columns that uniquely identifies each row in a table. It must contain unique values and cannot be null.\n\n### 4. What is a foreign key?\nA foreign key is a column or set of columns in one table that references the primary key of another table. It enforces referential integrity between related tables.\n\n### 5. What is normalization?\nNormalization is the process of organizing data to reduce redundancy and improve data integrity. Common normal forms include 1NF, 2NF, and 3NF.\n\n### 6. When would you denormalize a database?\nYou denormalize when read performance is more important than strict normalization, especially in reporting, analytics, or high-read systems where reducing joins improves speed.\n\n### 7. What is the difference between DELETE, TRUNCATE, and DROP?\n- `DELETE` removes selected rows and can be used with a `WHERE` clause.\n- `TRUNCATE` removes all rows from a table quickly, usually with minimal logging.\n- `DROP` removes the entire table structure and its data.\n\n### 8. What is the difference between WHERE and HAVING?\n`WHERE` filters rows before grouping. `HAVING` filters groups after `GROUP BY` has been applied.\n\n### 9. What is a JOIN?\nA JOIN combines rows from two or more tables based on a related column.\n\n### 10. What is the difference between INNER JOIN and LEFT JOIN?\n`INNER JOIN` returns only matching rows from both tables. `LEFT JOIN` returns all rows from the left table and matching rows from the right table, with nulls when no match exists.\n\n### 11. What is an index?\nAn index is a data structure that improves lookup speed on one or more columns. It helps queries avoid full table scans, though it adds storage cost and can slow down inserts, updates, and deletes.\n\n### 12. What are constraints in a database?\nConstraints are rules enforced on data to maintain integrity. Common examples are `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `NOT NULL`, and `CHECK`.\n\n### 13. What is the difference between UNIQUE and PRIMARY KEY?\nBoth enforce uniqueness, but a primary key uniquely identifies the main record in a table and cannot be null. A table has one primary key, while it may have multiple unique constraints depending on the database engine.\n\n### 14. What is a transaction?\nA transaction is a sequence of database operations treated as a single unit of work. It either fully succeeds and commits, or fails and rolls back.\n\n### 15. What does ACID mean?\n- **Atomicity**: all operations in a transaction succeed or none do.\n- **Consistency**: the database remains in a valid state.\n- **Isolation**: concurrent transactions do not interfere improperly.\n- **Durability**: committed changes survive failures.\n\n### 16. What is the difference between a clustered and non-clustered index?\nA clustered index determines the physical order of data storage in the table. A non-clustered index stores a separate structure with pointers to the actual rows. A table generally has one clustered index but can have many non-clustered indexes.\n\n### 17. What is a composite index?\nA composite index is an index on multiple columns. It is useful when queries commonly filter or sort by those columns together.\n\n### 18. What is the N+1 query problem?\nThe N+1 query problem happens when an application performs one query to fetch a list of records and then executes an additional query for each record to fetch related data. It causes unnecessary round trips and poor performance.\n\n### 19. What is a view?\nA view is a virtual table based on the result of a query. It can simplify complex queries, improve reusability, and sometimes provide a security abstraction.\n\n### 20. What is a stored procedure?\nA stored procedure is a reusable set of SQL statements stored in the database. It can encapsulate business logic, improve consistency, and reduce repeated SQL in applications."
+        "id": "04adc8c46dca",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a database?",
+        "answer": "A database is an organized system for storing, managing, and retrieving data efficiently. It allows applications and users to insert, update, query, and analyze information in a structured way."
+      },
+      {
+        "id": "ce04d6e93c28",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between SQL and NoSQL databases?",
+        "answer": "SQL databases are relational, use structured schemas, and are typically queried with SQL. They are strong when you need joins, transactions, and strict consistency. NoSQL databases are often schema-flexible and are designed for use cases such as large-scale document storage, caching, graph traversal, or high-throughput distributed workloads."
+      },
+      {
+        "id": "89049e684799",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a primary key?",
+        "answer": "A primary key is a column or set of columns that uniquely identifies each row in a table. It must contain unique values and cannot be null."
+      },
+      {
+        "id": "d9f4adb5775b",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a foreign key?",
+        "answer": "A foreign key is a column or set of columns in one table that references the primary key of another table. It enforces referential integrity between related tables."
+      },
+      {
+        "id": "3a48de7ccf20",
+        "topic": "Common Database Interview Questions",
+        "question": "What is normalization?",
+        "answer": "Normalization is the process of organizing data to reduce redundancy and improve data integrity. Common normal forms include 1NF, 2NF, and 3NF."
+      },
+      {
+        "id": "0eb871c012f5",
+        "topic": "Common Database Interview Questions",
+        "question": "When would you denormalize a database?",
+        "answer": "You denormalize when read performance is more important than strict normalization, especially in reporting, analytics, or high-read systems where reducing joins improves speed."
+      },
+      {
+        "id": "0f77d8eb79b8",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between DELETE, TRUNCATE, and DROP?",
+        "answer": "- `DELETE` removes selected rows and can be used with a `WHERE` clause.\n- `TRUNCATE` removes all rows from a table quickly, usually with minimal logging.\n- `DROP` removes the entire table structure and its data."
+      },
+      {
+        "id": "a88a16e7f28c",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between WHERE and HAVING?",
+        "answer": "`WHERE` filters rows before grouping. `HAVING` filters groups after `GROUP BY` has been applied."
+      },
+      {
+        "id": "00cd0d89d012",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a JOIN?",
+        "answer": "A JOIN combines rows from two or more tables based on a related column."
+      },
+      {
+        "id": "5f2d21635ce7",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between INNER JOIN and LEFT JOIN?",
+        "answer": "`INNER JOIN` returns only matching rows from both tables. `LEFT JOIN` returns all rows from the left table and matching rows from the right table, with nulls when no match exists."
+      },
+      {
+        "id": "46bec0ede10d",
+        "topic": "Common Database Interview Questions",
+        "question": "What is an index?",
+        "answer": "An index is a data structure that improves lookup speed on one or more columns. It helps queries avoid full table scans, though it adds storage cost and can slow down inserts, updates, and deletes."
+      },
+      {
+        "id": "88e8b61d5748",
+        "topic": "Common Database Interview Questions",
+        "question": "What are constraints in a database?",
+        "answer": "Constraints are rules enforced on data to maintain integrity. Common examples are `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `NOT NULL`, and `CHECK`."
+      },
+      {
+        "id": "8f21ef924057",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between UNIQUE and PRIMARY KEY?",
+        "answer": "Both enforce uniqueness, but a primary key uniquely identifies the main record in a table and cannot be null. A table has one primary key, while it may have multiple unique constraints depending on the database engine."
+      },
+      {
+        "id": "c45ccf0c7024",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a transaction?",
+        "answer": "A transaction is a sequence of database operations treated as a single unit of work. It either fully succeeds and commits, or fails and rolls back."
+      },
+      {
+        "id": "ff1ada6b6508",
+        "topic": "Common Database Interview Questions",
+        "question": "What does ACID mean?",
+        "answer": "- **Atomicity**: all operations in a transaction succeed or none do.\n- **Consistency**: the database remains in a valid state.\n- **Isolation**: concurrent transactions do not interfere improperly.\n- **Durability**: committed changes survive failures."
+      },
+      {
+        "id": "4436cfae341e",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the difference between a clustered and non-clustered index?",
+        "answer": "A clustered index determines the physical order of data storage in the table. A non-clustered index stores a separate structure with pointers to the actual rows. A table generally has one clustered index but can have many non-clustered indexes."
+      },
+      {
+        "id": "440cf9cc2f1f",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a composite index?",
+        "answer": "A composite index is an index on multiple columns. It is useful when queries commonly filter or sort by those columns together."
+      },
+      {
+        "id": "80de3a4f1f6c",
+        "topic": "Common Database Interview Questions",
+        "question": "What is the N+1 query problem?",
+        "answer": "The N+1 query problem happens when an application performs one query to fetch a list of records and then executes an additional query for each record to fetch related data. It causes unnecessary round trips and poor performance."
+      },
+      {
+        "id": "89f66a1105b5",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a view?",
+        "answer": "A view is a virtual table based on the result of a query. It can simplify complex queries, improve reusability, and sometimes provide a security abstraction."
+      },
+      {
+        "id": "7929de94f292",
+        "topic": "Common Database Interview Questions",
+        "question": "What is a stored procedure?",
+        "answer": "A stored procedure is a reusable set of SQL statements stored in the database. It can encapsulate business logic, improve consistency, and reduce repeated SQL in applications."
       },
       {
         "id": "0a3a81362a65",
@@ -1025,115 +1133,115 @@ window.QA_DATA = [
       },
       {
         "id": "08f1ffe6d0df",
-        "topic": "What are database isolation levels?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What are dirty reads, non-repeatable reads, and phantom reads?",
         "answer": "- **Dirty read**: reading uncommitted data from another transaction.\n- **Non-repeatable read**: getting different values when reading the same row twice in one transaction.\n- **Phantom read**: seeing different sets of rows when rerunning a query in one transaction because another transaction inserted or deleted matching rows."
       },
       {
         "id": "e0490b6d5ba9",
-        "topic": "What are dirty reads, non-repeatable reads, and phantom reads?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is a deadlock?",
         "answer": "A deadlock happens when two or more transactions wait on each other to release locks, so none can proceed. Databases usually detect deadlocks and abort one transaction."
       },
       {
         "id": "762ab43c51fd",
-        "topic": "What is a deadlock?",
+        "topic": "Advanced Database Interview Questions",
         "question": "How can you reduce the chance of deadlocks?",
         "answer": "You can reduce deadlocks by accessing tables in a consistent order, keeping transactions short, indexing properly to reduce lock duration, and avoiding unnecessary user interaction inside transactions."
       },
       {
         "id": "7fb53b456719",
-        "topic": "How can you reduce the chance of deadlocks?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is optimistic locking vs pessimistic locking?",
         "answer": "Optimistic locking assumes conflicts are rare and checks for changes before commit, often using a version column. Pessimistic locking locks data early to prevent concurrent modification, which is safer for contention-heavy scenarios but reduces concurrency."
       },
       {
         "id": "948b4dd323af",
-        "topic": "What is optimistic locking vs pessimistic locking?",
+        "topic": "Advanced Database Interview Questions",
         "question": "How would you optimize a slow SQL query?",
         "answer": "Start by checking the execution plan. Look for full table scans, expensive joins, sorts, and missing indexes. Then reduce scanned rows, add or refine indexes, rewrite inefficient predicates, avoid unnecessary columns, and verify whether schema or query structure should change."
       },
       {
         "id": "43e4a8f24204",
-        "topic": "How would you optimize a slow SQL query?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is an execution plan?",
         "answer": "An execution plan shows how the database engine will execute a query, including scans, seeks, joins, sorts, and estimated or actual costs. It is one of the main tools for diagnosing performance issues."
       },
       {
         "id": "0bbed43b6dc1",
-        "topic": "What is an execution plan?",
+        "topic": "Advanced Database Interview Questions",
         "question": "Why might a query not use an index?",
         "answer": "Common reasons include low selectivity, outdated statistics, small table size, functions applied to indexed columns, implicit type conversions, leading wildcards in `LIKE`, or because the optimizer estimates a scan is cheaper."
       },
       {
         "id": "77d5d6a13497",
-        "topic": "Why might a query not use an index?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is partitioning?",
         "answer": "Partitioning splits a large table or index into smaller logical pieces while still presenting it as one object. It can improve manageability and, in some cases, query performance when filters align with the partition key."
       },
       {
         "id": "238f1a0a0484",
-        "topic": "What is partitioning?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is sharding?",
         "answer": "Sharding distributes data across multiple independent database servers, usually by a shard key. It helps scale horizontally, but it increases complexity around joins, transactions, and rebalancing."
       },
       {
         "id": "e3f7adb904f1",
-        "topic": "What is sharding?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is replication?",
         "answer": "Replication is the process of copying data from one database server to others. It is commonly used for high availability, disaster recovery, and read scaling."
       },
       {
         "id": "c6b7a1e5bfa7",
-        "topic": "What is replication?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is the CAP theorem?",
         "answer": "The CAP theorem says that in a distributed system, during a network partition you can choose at most two of the following three guarantees: consistency, availability, and partition tolerance. Since partitions can happen, systems often make tradeoffs between consistency and availability."
       },
       {
         "id": "90b5b9eab733",
-        "topic": "What is the CAP theorem?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is eventual consistency?",
         "answer": "Eventual consistency means that if no new updates occur, all replicas will eventually converge to the same value. It is common in distributed systems that prioritize availability and performance."
       },
       {
         "id": "d58b38138ab7",
-        "topic": "What is eventual consistency?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is a covering index?",
         "answer": "A covering index includes all the columns needed to satisfy a query, so the database can return results directly from the index without going back to the base table."
       },
       {
         "id": "a157f2fa2cc2",
-        "topic": "What is a covering index?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is cardinality in databases?",
         "answer": "Cardinality can refer to relationship type, such as one-to-many, or to the number of distinct values in a column. In query optimization, higher cardinality often makes an index more useful."
       },
       {
         "id": "8ba937bd3053",
-        "topic": "What is cardinality in databases?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is the difference between OLTP and OLAP?",
         "answer": "OLTP systems handle many short, transactional operations such as inserts and updates in business applications. OLAP systems are optimized for analytical queries, aggregations, and reporting across large datasets."
       },
       {
         "id": "245f755b1ad6",
-        "topic": "What is the difference between OLTP and OLAP?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What are materialized views?",
         "answer": "Materialized views store the results of a query physically, unlike standard views which are computed at query time. They improve read performance for expensive queries but require refresh management."
       },
       {
         "id": "62360e28e0a2",
-        "topic": "What are materialized views?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is database caching?",
         "answer": "Database caching stores frequently accessed data in a faster layer, such as Redis or application memory, to reduce database load and improve latency."
       },
       {
         "id": "8ade5a150205",
-        "topic": "What is database caching?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What are database statistics, and why do they matter?",
         "answer": "Statistics describe data distribution and help the query optimizer estimate row counts and choose efficient execution plans. Poor or stale statistics can cause bad plans and slow queries."
       },
       {
         "id": "483edfbf0a23",
-        "topic": "What are database statistics, and why do they matter?",
+        "topic": "Advanced Database Interview Questions",
         "question": "What is a schema migration?",
         "answer": "A schema migration is a controlled change to the database structure, such as adding tables, columns, indexes, or constraints. Good migration practice includes versioning, rollback planning, and backward compatibility for live systems."
       },
@@ -1145,37 +1253,37 @@ window.QA_DATA = [
       },
       {
         "id": "6334a71eac4a",
-        "topic": "How would you design a database for an e-commerce application?",
+        "topic": "Scenario-Based Questions and Answers",
         "question": "How would you handle a table with hundreds of millions of rows?",
         "answer": "I would review access patterns first, then add or refine indexes, archive cold data if appropriate, and consider partitioning. I would also check whether queries can be narrowed by date or tenant and whether expensive reporting should move to a separate analytical system."
       },
       {
         "id": "4b853f152d4f",
-        "topic": "How would you handle a table with hundreds of millions of rows?",
+        "topic": "Scenario-Based Questions and Answers",
         "question": "How would you safely add a new non-null column to a large production table?",
         "answer": "I would usually add it as nullable first, backfill in batches, update the application to write the new value, validate completeness, and only then enforce the non-null constraint. This reduces lock time and deployment risk."
       },
       {
         "id": "538c1a35738f",
-        "topic": "How would you safely add a new non-null column to a large production table?",
+        "topic": "Scenario-Based Questions and Answers",
         "question": "How would you investigate high database CPU usage?",
         "answer": "I would identify the top expensive queries, inspect execution plans, check waits and locks, review recent deployments, and confirm whether missing indexes, bad plans, parameter sniffing, or unexpected traffic spikes are involved."
       },
       {
         "id": "732f5e6e5efc",
-        "topic": "How would you investigate high database CPU usage?",
+        "topic": "Scenario-Based Questions and Answers",
         "question": "How would you prevent duplicate records in a concurrent system?",
         "answer": "I would use a unique constraint or unique index at the database level, because application-only checks are vulnerable to race conditions. Then I would handle duplicate-key errors gracefully in the application."
       },
       {
         "id": "c4e844dee3b4",
-        "topic": "Get the latest order per customer.",
+        "topic": "Short SQL Prompts You May Be Asked",
         "question": "Explain the difference between COUNT(*), COUNT(1), and COUNT(column).",
         "answer": "`COUNT(*)` counts all rows. `COUNT(1)` is generally treated the same by modern optimizers. `COUNT(column)` counts only rows where that column is not null."
       },
       {
         "id": "8d4945fd59d8",
-        "topic": "Explain the difference between COUNT(*), COUNT(1), and COUNT(column).",
+        "topic": "Short SQL Prompts You May Be Asked",
         "question": "What makes a strong database answer in interviews?",
         "answer": "A strong answer balances correctness, tradeoffs, and practical experience. Good candidates explain not just what a concept is, but when it matters, what can go wrong, and how they have approached it in real systems."
       }

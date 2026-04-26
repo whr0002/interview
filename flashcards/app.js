@@ -1,5 +1,6 @@
-﻿(function () {
-  const cards = Array.isArray(window.FLASHCARD_DATA) ? window.FLASHCARD_DATA : [];
+(function () {
+  const qaSources = Array.isArray(window.QA_DATA) ? window.QA_DATA : [];
+  const cards = flattenQaData(qaSources);
   const storageKey = "interview-flashcards-progress-v1";
   const state = {
     index: 0,
@@ -32,6 +33,17 @@
     nextBtn: document.getElementById("nextBtn"),
     positionLabel: document.getElementById("positionLabel"),
   };
+
+  function flattenQaData(sources) {
+    return sources.flatMap((source) =>
+      (source.questions || []).map((card) => ({
+        ...card,
+        source: source.sourcePath || source.fileName,
+        fileName: source.fileName,
+        sourceTitle: source.title,
+      })),
+    );
+  }
 
   function loadProgress() {
     try {
@@ -69,7 +81,7 @@
           state.mode === "all" ||
           (state.mode === "due" && progress.status !== "known") ||
           (state.mode === "starred" && progress.starred);
-        const haystack = normalize(`${card.question} ${card.answer} ${card.source} ${card.topic}`);
+        const haystack = normalize(`${card.question} ${card.answer} ${card.source} ${card.fileName} ${card.topic}`);
         return matchesSource && matchesMode && (!query || haystack.includes(query));
       });
   }
@@ -112,7 +124,9 @@
     if (!list.length) {
       el.sourceLabel.textContent = "No match";
       el.sideLabel.textContent = "Empty";
-      el.cardText.textContent = "换一个来源、模式或搜索关键词试试。";
+      el.cardText.textContent = cards.length
+        ? "换一个来源、模式或搜索关键词试试。"
+        : "没有加载到数据。请确认 qa-data.js 已生成并在 app.js 之前加载。";
       el.positionLabel.textContent = "0 / 0";
       el.starBtn.textContent = "☆";
       el.prevBtn.disabled = true;

@@ -1,14 +1,14 @@
-import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
+import { readdir, readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
 
 const root = path.resolve(import.meta.dirname, "..");
 const qaDir = path.join(root, "QAs");
 const outputDir = path.join(root, "flashcards");
-const groupedJsonOutputFile = path.join(outputDir, "qa-data.json");
-const groupedJsOutputFile = path.join(outputDir, "qa-data.js");
-const jsonOutputFile = path.join(outputDir, "cards-data.json");
-const jsOutputFile = path.join(outputDir, "cards-data.js");
+const dataOutputFile = path.join(outputDir, "qa-data.js");
+const legacyDataFiles = ["qa-data.json", "cards-data.json", "cards-data.js"].map((fileName) =>
+  path.join(outputDir, fileName),
+);
 const readableFileNames = new Map([
   ["01_鍓嶇_React闈㈣瘯闂瓟.md", "01_前端_React面试问答.md"],
   ["02_鍓嶇_TypeScript澶嶄範.md", "02_前端_TypeScript复习.md"],
@@ -77,6 +77,14 @@ function detectTopic(lines, lineIndex) {
     if (match) return normalizeQuestion(match[1]);
   }
   return "Interview Practice";
+}
+
+function detectParentTopic(lines, lineIndex, level) {
+  for (let i = lineIndex - 1; i >= 0; i -= 1) {
+    const match = lines[i].match(/^(#{2,3})\s+(.+)/);
+    if (match && match[1].length < level) return normalizeQuestion(match[2]);
+  }
+  return detectTopic(lines, lineIndex - 1);
 }
 
 function cardId(source, question, answer) {
@@ -171,6 +179,20 @@ function parseQuestionHeadings(markdown, source) {
 
     const level = match[1].length;
     const question = normalizeQuestion(match[2]);
+    let hasChildQuestionHeading = false;
+    for (let k = i + 1; k < lines.length; k += 1) {
+      const nextHeading = lines[k].match(/^(#{2,3})\s+(.+)/);
+      if (!nextHeading) continue;
+      const nextLevel = nextHeading[1].length;
+      if (nextLevel <= level) break;
+      if (isHeadingQuestion(nextHeading[2])) {
+        hasChildQuestionHeading = true;
+        break;
+      }
+    }
+
+    if (hasChildQuestionHeading) continue;
+
     const answerLines = [];
     let j = i + 1;
 
@@ -183,7 +205,7 @@ function parseQuestionHeadings(markdown, source) {
 
     const answer = compactAnswer(answerLines.join("\n"));
     if (question && answer) {
-      cards.push({ source, topic: detectTopic(lines, i - 1), question, answer });
+      cards.push({ source, topic: detectParentTopic(lines, i, level), question, answer });
     }
     i = j - 1;
   }
@@ -231,27 +253,15 @@ for (const file of files) {
   });
 }
 
-const flatCards = groupedSources.flatMap((source) =>
-  source.questions.map((card) => ({
-    id: card.id,
-    source: source.sourcePath,
-    fileName: source.fileName,
-    topic: card.topic,
-    question: card.question,
-    answer: card.answer,
-    sourceTitle: source.title,
-  })),
-);
+const totalCards = groupedSources.reduce((total, source) => total + source.count, 0);
 
 await mkdir(outputDir, { recursive: true });
-await writeFile(groupedJsonOutputFile, `${JSON.stringify(groupedSources, null, 2)}\n`, "utf8");
-await writeFile(groupedJsOutputFile, `window.QA_DATA = ${JSON.stringify(groupedSources, null, 2)};\n`, "utf8");
-await writeFile(jsonOutputFile, `${JSON.stringify(flatCards, null, 2)}\n`, "utf8");
-await writeFile(jsOutputFile, `window.FLASHCARD_DATA = ${JSON.stringify(flatCards, null, 2)};\n`, "utf8");
+await writeFile(dataOutputFile, `window.QA_DATA = ${JSON.stringify(groupedSources, null, 2)};\n`, "utf8");
+await Promise.all(legacyDataFiles.map((file) => rm(file, { force: true })));
 
 console.log(
-  `Generated ${flatCards.length} cards from ${groupedSources.length} files at ${path.relative(
+  `Generated ${totalCards} cards from ${groupedSources.length} files at ${path.relative(
     root,
-    groupedJsonOutputFile,
-  )} and ${path.relative(root, jsonOutputFile)}`,
+    dataOutputFile,
+  )}`,
 );

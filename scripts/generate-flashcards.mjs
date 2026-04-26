@@ -68,7 +68,7 @@ function findFlashcardLines(markdown) {
 }
 
 function cleanInlineMarker(line, marker) {
-  const pattern = new RegExp(`^\\s*(?:\\*\\*)?${marker}:\\s*(.*?)(?:\\*\\*)?\\s*$`, "i");
+  const pattern = new RegExp(`^\\s*(?:\\*\\*)?${marker}:\\s*(?:\\*\\*)?\\s*(.*?)(?:\\*\\*)?\\s*$`, "i");
   return line.match(pattern)?.[1]?.trim();
 }
 

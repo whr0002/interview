@@ -112,6 +112,20 @@ h2 {
   font-weight: 700;
 }
 
+.toggle-field {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.toggle-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--blue);
+}
+
 .field input,
 .field select {
   width: 100%;
@@ -257,6 +271,22 @@ h2 {
   background: #f3f6fb;
   padding: 0.05em 0.28em;
   font-size: 0.92em;
+}
+
+.qa-pair {
+  display: grid;
+  gap: 12px;
+}
+
+.qa-heading {
+  color: var(--blue-dark);
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.qa-body + .qa-heading {
+  margin-top: 12px;
 }
 
 .flip-hint {

@@ -6,6 +6,7 @@
   const state = {
     index: 0,
     flipped: false,
+    showBoth: false,
     source: "all",
     mode: "all",
     query: "",
@@ -19,6 +20,7 @@
     searchInput: document.getElementById("searchInput"),
     sourceSelect: document.getElementById("sourceSelect"),
     modeSelect: document.getElementById("modeSelect"),
+    showBothToggle: document.getElementById("showBothToggle"),
     knownCount: document.getElementById("knownCount"),
     reviewCount: document.getElementById("reviewCount"),
     starredCount: document.getElementById("starredCount"),
@@ -93,6 +95,17 @@
       .replace(/>/g, "&gt;")
       .replace(/`([^`]+)`/g, "<code>$1</code>")
       .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  }
+
+  function renderQuestionAndAnswer(card) {
+    return `
+      <span class="qa-pair">
+        <span class="qa-heading">Question</span>
+        <span class="qa-body">${renderMarkdown(card.question)}</span>
+        <span class="qa-heading">Answer</span>
+        <span class="qa-body">${renderMarkdown(card.answer)}</span>
+      </span>
+    `;
   }
 
   function sourceCards() {
@@ -184,8 +197,10 @@
     const card = list[state.index];
     const progress = state.progress[card.id] || {};
     el.sourceLabel.textContent = (card.fileName || card.sourceTitle || card.source).replace(/\.md$/i, "");
-    el.sideLabel.textContent = state.flipped ? "Answer" : "Question";
-    el.cardText.innerHTML = renderMarkdown(state.flipped ? card.answer : card.question);
+    el.sideLabel.textContent = state.showBoth ? "Question + Answer" : state.flipped ? "Answer" : "Question";
+    el.cardText.innerHTML = state.showBoth
+      ? renderQuestionAndAnswer(card)
+      : renderMarkdown(state.flipped ? card.answer : card.question);
     el.positionLabel.textContent = `${state.index + 1} / ${list.length}`;
     el.starBtn.textContent = progress.starred ? "★" : "☆";
     el.prevBtn.disabled = state.index === 0;
@@ -269,6 +284,7 @@
   }
 
   el.cardButton.addEventListener("click", () => {
+    if (state.showBoth) return;
     state.flipped = !state.flipped;
     renderCard();
   });
@@ -297,10 +313,16 @@
     state.flipped = false;
     renderCard();
   });
+  el.showBothToggle.addEventListener("change", (event) => {
+    state.showBoth = event.target.checked;
+    state.flipped = false;
+    renderCard();
+  });
   document.addEventListener("keydown", (event) => {
     if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement) return;
     if (event.key === " ") {
       event.preventDefault();
+      if (state.showBoth) return;
       state.flipped = !state.flipped;
       renderCard();
     }

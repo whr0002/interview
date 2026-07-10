@@ -100,7 +100,9 @@ h2 {
 .position,
 .field span,
 .stats-grid span,
-.flip-hint {
+.flip-hint,
+.filter-summary,
+.storage-status {
   color: var(--muted);
 }
 
@@ -131,6 +133,18 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
+}
+
+.filter-summary,
+.storage-status {
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.filter-summary {
+  border-left: 3px solid var(--blue);
+  padding-left: 10px;
+  font-weight: 700;
 }
 
 .stats-grid div {

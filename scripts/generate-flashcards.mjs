@@ -54,11 +54,19 @@ function titleFromMarkdown(markdown, fallback) {
   return parseFrontmatter(markdown).title || markdown.match(/^#\s+(.+)$/m)?.[1]?.trim() || fallback.replace(/\.md$/i, "");
 }
 
-function cardId(source, question, answer) {
+function hashCardParts(...parts) {
   return createHash("sha1")
-    .update(`${source}\n${question}\n${answer}`)
+    .update(parts.join("\n"))
     .digest("hex")
     .slice(0, 12);
+}
+
+function cardId(source, topic, question) {
+  return hashCardParts(source, topic, question);
+}
+
+function legacyCardId(source, question, answer) {
+  return hashCardParts(source, question, answer);
 }
 
 function findFlashcardLines(markdown) {
@@ -83,7 +91,8 @@ function parseFlashcards(markdown, sourcePath) {
     const answer = current.answerLines.join("\n").trim();
     if (current.question && answer) {
       cards.push({
-        id: cardId(sourcePath, current.question, answer),
+        id: cardId(sourcePath, topic, current.question),
+        legacyId: legacyCardId(sourcePath, current.question, answer),
         topic,
         question: current.question,
         answer,

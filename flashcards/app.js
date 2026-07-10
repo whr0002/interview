@@ -1,7 +1,8 @@
 (function () {
   const qaSources = Array.isArray(window.QA_DATA) ? window.QA_DATA : [];
   const cards = flattenQaData(qaSources);
-  const storageKey = "interview-flashcards-progress-v1";
+  const storageKey = "interview-flashcards-progress-v2";
+  const legacyStorageKeys = ["interview-flashcards-progress-v1"];
   const state = {
     index: 0,
     flipped: false,
@@ -10,6 +11,7 @@
     query: "",
     order: cards.map((_, index) => index),
     progress: loadProgress(),
+    storageAvailable: true,
   };
 
   const el = {
@@ -23,6 +25,8 @@
     shuffleBtn: document.getElementById("shuffleBtn"),
     resetBtn: document.getElementById("resetBtn"),
     sourceLabel: document.getElementById("sourceLabel"),
+    filterLabel: document.getElementById("filterLabel"),
+    storageStatus: document.getElementById("storageStatus"),
     starBtn: document.getElementById("starBtn"),
     cardButton: document.getElementById("cardButton"),
     sideLabel: document.getElementById("sideLabel"),
@@ -41,20 +45,41 @@
         source: source.sourcePath || source.fileName,
         fileName: source.fileName,
         sourceTitle: source.title,
+        category: source.category,
       })),
     );
   }
 
-  function loadProgress() {
+  function readProgress(key) {
     try {
-      return JSON.parse(localStorage.getItem(storageKey)) || {};
+      return JSON.parse(localStorage.getItem(key)) || {};
     } catch {
       return {};
     }
   }
 
+  function loadProgress() {
+    const progress = readProgress(storageKey);
+
+    for (const key of legacyStorageKeys) {
+      const legacyProgress = readProgress(key);
+      cards.forEach((card) => {
+        if (!progress[card.id] && card.legacyId && legacyProgress[card.legacyId]) {
+          progress[card.id] = legacyProgress[card.legacyId];
+        }
+      });
+    }
+
+    return progress;
+  }
+
   function saveProgress() {
-    localStorage.setItem(storageKey, JSON.stringify(state.progress));
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(state.progress));
+      state.storageAvailable = true;
+    } catch {
+      state.storageAvailable = false;
+    }
   }
 
   function normalize(value) {
@@ -70,6 +95,10 @@
       .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   }
 
+  function sourceCards() {
+    return cards.filter((card) => state.source === "all" || card.source === state.source);
+  }
+
   function currentFiltered() {
     const query = normalize(state.query);
     return state.order
@@ -79,7 +108,8 @@
         const matchesSource = state.source === "all" || card.source === state.source;
         const matchesMode =
           state.mode === "all" ||
-          (state.mode === "due" && progress.status !== "known") ||
+          (state.mode === "unmastered" && progress.status === "review") ||
+          (state.mode === "known" && progress.status === "known") ||
           (state.mode === "starred" && progress.starred);
         const haystack = normalize(`${card.question} ${card.answer} ${card.source} ${card.fileName} ${card.topic}`);
         return matchesSource && matchesMode && (!query || haystack.includes(query));
@@ -103,29 +133,44 @@
   }
 
   function renderStats() {
+    const scopedCards = sourceCards();
     let known = 0;
+    let review = 0;
     let starred = 0;
-    cards.forEach((card) => {
+    scopedCards.forEach((card) => {
       const item = state.progress[card.id] || {};
       if (item.status === "known") known += 1;
+      if (item.status === "review") review += 1;
       if (item.starred) starred += 1;
     });
+
     el.knownCount.textContent = known;
-    el.reviewCount.textContent = Math.max(cards.length - known, 0);
+    el.reviewCount.textContent = review;
     el.starredCount.textContent = starred;
     el.cardCount.textContent = `${cards.length} 张卡片`;
+    el.storageStatus.textContent = state.storageAvailable ? "进度已保存在本机" : "本机存储不可用，本次进度不会保存";
+  }
+
+  function renderFilterLabel(list) {
+    const sourceName =
+      state.source === "all"
+        ? "全部资料"
+        : (cards.find((card) => card.source === state.source)?.fileName || state.source).replace(/\.md$/i, "");
+    const modeName = el.modeSelect.options[el.modeSelect.selectedIndex]?.text || "全部卡片";
+    el.filterLabel.textContent = `${sourceName} / ${modeName} / 当前 ${list.length} 张`;
   }
 
   function renderCard() {
     const list = currentFiltered();
     clampIndex(list);
     renderStats();
+    renderFilterLabel(list);
 
     if (!list.length) {
       el.sourceLabel.textContent = "No match";
       el.sideLabel.textContent = "Empty";
       el.cardText.textContent = cards.length
-        ? "换一个来源、模式或搜索关键词试试。"
+        ? "换一个资料来源、练习模式或搜索关键词试试。"
         : "没有加载到数据。请确认 qa-data.js 已生成并在 app.js 之前加载。";
       el.positionLabel.textContent = "0 / 0";
       el.starBtn.textContent = "☆";
@@ -161,13 +206,27 @@
     const list = currentFiltered();
     const card = list[state.index];
     if (!card) return;
+    const previousIndex = state.index;
     state.progress[card.id] = {
       ...(state.progress[card.id] || {}),
       status,
       updatedAt: new Date().toISOString(),
     };
     saveProgress();
-    move(1);
+
+    const nextList = currentFiltered();
+    state.flipped = false;
+    if (!nextList.length) {
+      state.index = 0;
+      renderCard();
+      return;
+    }
+
+    const cardStillVisible = nextList.some((item) => item.id === card.id);
+    state.index = cardStillVisible
+      ? Math.min(previousIndex + 1, nextList.length - 1)
+      : Math.min(previousIndex, nextList.length - 1);
+    renderCard();
   }
 
   function shuffle() {
@@ -181,8 +240,20 @@
   }
 
   function resetProgress() {
-    if (!confirm("确定清空本地学习进度吗？")) return;
-    state.progress = {};
+    const message =
+      state.source === "all"
+        ? "确定清空所有本地学习进度吗？"
+        : "确定只清空当前资料集的学习进度吗？";
+    if (!confirm(message)) return;
+
+    if (state.source === "all") {
+      state.progress = {};
+    } else {
+      sourceCards().forEach((card) => {
+        delete state.progress[card.id];
+      });
+    }
+
     saveProgress();
     renderCard();
   }
@@ -237,6 +308,7 @@
     if (event.key === "ArrowRight") move(1);
   });
 
+  saveProgress();
   renderSources();
   renderCard();
 })();

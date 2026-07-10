@@ -31,10 +31,13 @@
           <span>练习模式</span>
           <select id="modeSelect">
             <option value="all">全部卡片</option>
-            <option value="due">未掌握优先</option>
+            <option value="unmastered">只看还不熟</option>
+            <option value="known">只看已掌握</option>
             <option value="starred">只看收藏</option>
           </select>
         </label>
+
+        <p class="filter-summary" id="filterLabel">全部资料 / 全部卡片</p>
 
         <div class="stats-grid" aria-label="Study stats">
           <div>
@@ -43,13 +46,15 @@
           </div>
           <div>
             <strong id="reviewCount">0</strong>
-            <span>待复习</span>
+            <span>还不熟</span>
           </div>
           <div>
             <strong id="starredCount">0</strong>
             <span>收藏</span>
           </div>
         </div>
+
+        <p class="storage-status" id="storageStatus">进度已保存在本机</p>
 
         <div class="actions">
           <button id="shuffleBtn" type="button" class="secondary">随机</button>
